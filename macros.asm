@@ -9,3 +9,7 @@
 	.macro map_id, map
 	.byte GROUP_map, MAP_map
 	.endmacro
+
+	.macro rgb, r, g, b
+	.halfword r | g << 5 | b << 10
+	.endmacro

@@ -76,7 +76,7 @@ loc_8034d44:
 	.byte 0x00 ; byte1
 	.byte 0x15 ; Music
 	.byte 0x00 ; Battle Mode
-	.byte 0x07 ; Background (Generic Comp)
+	.byte 15 ; Background (Undernet)
 	.byte 0x00 ; Battle Count
 	.byte 0x38 ; Panel pattern
 	.byte 0x00 ; byte7
@@ -117,3 +117,7 @@ ACDCTown_TrainingModeBattleLayout:
 	; ignore chip codes when selecting
 	.org 0x8028f00
 	b 0x8028f3e
+
+	; undernet BGAnimData, just replace palette
+	.org 0x8081188
+	.word UndernetBGAnimDataPalette_NEW
