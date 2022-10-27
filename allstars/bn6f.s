@@ -39,7 +39,7 @@ VERSION            equ FALZAR // 0 = Gregar, 1 = Falzar
 	.definelabel PatchLoadBeastChipImage_Return, 0x8028726
 	.definelabel PatchLoadBeastChipPalette_Return, 0x802873C
 	.definelabel sub_80302B6, 0x80302B6
-	.definelabel PlaySoundEffect, 0x80005CC
+	// .definelabel PlaySoundEffect, 0x80005CC
 	.definelabel PatchPlayBeastSoundEffect_Return, 0x802776A
 
 	.definelabel Hook_OverrideCrossChosenInMenu, 0x802A08A

@@ -13,8 +13,6 @@
 	.definelabel EVENT_MAX_PARTS_COMPRESSION, 0x26f8
 
 	.definelabel CS_VAR_IMM, 0xff
-
-	.definelabel NPCScript_StationaryNPC, 0x809f6cc
 	
 	.definelabel OW_UP, 0
 	.definelabel OW_UP_RIGHT, 1
@@ -25,20 +23,21 @@
 	.definelabel OW_LEFT, 6
 	.definelabel OW_UP_LEFT, 7
 
-	.definelabel oNaviStats_Attack, 0x1
-	.definelabel oNaviStats_Speed, 0x2
-	.definelabel oNaviStats_Charge, 0x3
-	.definelabel oNaviStats_MaxBaseHP, 0x3e
-	.definelabel oNaviStats_CurHP, 0x40
-	.definelabel oNaviStats_MaxHP, 0x42
-	.definelabel oNaviStats_Folder1Tag2, 0x57
-	.definelabel oNaviStats_ChipShuffle, 0x60
-	
-	.definelabel eOverworldNPCObject0_X, 0x20057d4
+	.definelabel JOYPAD_DEFAULT, 0xFC00
+	.definelabel JOYPAD_A, 0x0001
+	.definelabel JOYPAD_B, 0x0002
+	.definelabel JOYPAD_SELECT, 0x0004
+	.definelabel JOYPAD_START, 0x0008
+	.definelabel JOYPAD_RIGHT, 0x0010
+	.definelabel JOYPAD_LEFT, 0x0020
+	.definelabel JOYPAD_UP, 0x0040
+	.definelabel JOYPAD_DOWN, 0x0080
+	.definelabel JOYPAD_ARROWS, JOYPAD_RIGHT | JOYPAD_LEFT | JOYPAD_UP | JOYPAD_DOWN
+	.definelabel JOYPAD_R, 0x0100
+	.definelabel JOYPAD_L, 0x0200
 
-	.definelabel oToolkit_NaviStats, 0x74
-
-	.definelabel oNaviStats_RegUP, 0x9
+	.definelabel CHECKPOINT_VALUE_0, 0x12345678
+	.definelabel CHECKPOINT_VALUE_1, 0x56789123
 
 	.definelabel ITEM_TAGCHIP, 11
 	.definelabel ITEM_SPINWHIT, 80
@@ -143,5 +142,3 @@
 	.definelabel MAP_GROUP_TRANSITION_TYPE_REAL_WORLD_TO_INTERNET, 0x2
 
 	.definelabel SPRITE_NPC_MEGA_MAN, 0x37
-
-	.definelabel STARTING_MAP_ADDR, 0x80050e4
