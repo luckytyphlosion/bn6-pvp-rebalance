@@ -8,7 +8,8 @@
 
 	.definelabel CopyWords, 0x800093c
 	.definelabel battle_isBattleOver, 0x0800a18e
-	
+	.definelabel object_getFlag, 0x0801a166
+
 	.definelabel eOverworldNPCObject0_X, 0x20057d4
 
 	.definelabel NPCScript_StationaryNPC, 0x809f6cc
@@ -17,6 +18,10 @@
 
 	.definelabel PlaySoundEffect, 0x80005cc
 
+	.definelabel sub_800F964, 0x800F964
+	.definelabel sub_800F9DE, 0x800F9DE
+
+	.definelabel eT1BattleObject0, 0x203a9b0
 	.definelabel eT1BattleObject1, 0x203aa88
 
 ; ewram freespace at 203f7f0
@@ -44,5 +49,10 @@
 	.definelabel oBattleState_Unk_01, 0x1
 	.definelabel oBattleState_Unk_05, 0x5
 
-
-
+	.definelabel oBattleObject_PanelX, 0x12
+	.definelabel oBattleObject_PanelY, 0x13
+	.definelabel oBattleObject_Alliance, 0x16
+	.definelabel oBattleObject_HP, 0x24
+	.definelabel oBattleObject_MaxHP, 0x26
+	.definelabel oBattleObject_RelatedObject1Ptr, 0x4c
+	.definelabel oBattleObject_AIDataPtr, 0x58

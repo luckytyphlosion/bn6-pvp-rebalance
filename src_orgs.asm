@@ -7,6 +7,9 @@
 	.org 0x80058d0
 	mov pc, lr
 
+	; .org 0x800f988
+	; bl CheckIfPanelInFieldAndExtendedField
+
 	; hook after battle init
 	; .org 0x8007a3a
 	; bl SetOpponentCheckpoint0
@@ -89,3 +92,7 @@ ACDCTown_TrainingModeBattleLayout:
 	.byte 0x11, 0x25
 	.halfword 0x1a0 ; enemy megaman
 	.byte 0xF0
+
+	.org 0x80eb0a4
+	; override panel validity check when moving
+	bl Override_sub_800F964_MovementCheckFunction

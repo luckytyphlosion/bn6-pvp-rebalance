@@ -47,6 +47,19 @@ HookPlayerAndOpponentInput:
 	ldr r0, =JOYPAD_DEFAULT
 	b @@storeOpponentInput
 @@setOpponentJoypad:
+	; but also just do HP hack here
+	ldr r2, =JOYPAD_L
+	tst r0, r2
+	beq @@doNotSetMaxHP
+	ldr r2, =eT1BattleObject0
+	ldrh r3, [r2, oBattleObject_MaxHP]
+	strh r3, [r2, oBattleObject_HP]
+	ldr r2, =eT1BattleObject1
+	ldrh r3, [r2, oBattleObject_MaxHP]
+	strh r3, [r2, oBattleObject_HP]
+	ldr r0, =JOYPAD_DEFAULT
+	b @@loadPlayerInputThenStoreOpponentInput
+@@doNotSetMaxHP:
 	bic r0, r1
 	mov r1, JOYPAD_LEFT
 	tst r0, r1
@@ -93,4 +106,54 @@ SetOpponentCheckpointAfterRunning:
 	mov r0, 0x14
 	strb r0, [r5, 1]
 	mov pc, lr
+
+Override_sub_800F964_MovementCheckFunction:
+	push r6,r7
+
+	mov r6, r0
+	bl object_getFlag
+	mov r1, 1
+	lsl r1, r1, 0xc
+	tst r0, r1
+	bne @@loc_800F994
+	mov r0, r6
+	ldrb r1, [r5, oBattleObject_Alliance]
+	bl sub_800F9DE
+	ldrb r6, [r5, oBattleObject_PanelX]
+	add r6, r6, r0
+	ldrb r7, [r5, oBattleObject_PanelY]
+	add r7, r7, r1
+	mov r0, r6
+	mov r1, r7
+	bl CheckIfPanelInFieldAndExtendedField
+	beq @@loc_800F994
+	mov r0, r6
+	mov r1, r7
+	pop r6,r7
+	; hack return value
+	ldr r2, =0x80eb0d0|1
+	bx r2
+@@loc_800F994:
+	pop r6,r7
+	mov r0, #0
+	ldr r2, =0x80eb0cc|1
+	bx r2
+
+CheckIfPanelInFieldAndExtendedField:
+	add r2, r0, 1 ; negative check
+	beq @@doNotMove
+	cmp r0, 8
+	bge @@doNotMove
+
+	add r2, r1, 1 ; negative check
+	beq @@doNotMove
+	cmp r1, 5
+	bge @@doNotMove
+	mov r0, 1
+	b @@done
+@@doNotMove:
+	mov r0, 0
+@@done:
+	mov pc, lr
+
 	.pool
