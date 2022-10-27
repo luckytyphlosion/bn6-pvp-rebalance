@@ -18,12 +18,16 @@
 
 	.definelabel PlaySoundEffect, 0x80005cc
 
+	.definelabel ShuffleFolderSlice, 0x8000d12
+	.definelabel battle_clearFlags, 0x800a2e4
 	.definelabel sub_800F964, 0x800F964
 	.definelabel sub_800F9DE, 0x800F9DE
+	.definelabel SetCustGauge, 0x801DFA2
 
 	.definelabel eT1BattleObject0, 0x203a9b0
 	.definelabel eT1BattleObject1, 0x203aa88
 
+	.definelabel eBattleNaviStats1, 0x0203ce64
 ; ewram freespace at 203f7f0
 
 	.definelabel eSimulatedOpponent, 0x203f7f0
@@ -38,10 +42,11 @@
 	.definelabel oNaviStats_MaxHP, 0x42
 	.definelabel oNaviStats_Folder1Tag2, 0x57
 	.definelabel oNaviStats_ChipShuffle, 0x60
+	.definelabel oNaviStats_Size, 0x64
 
 	.definelabel oToolkit_JoypadPtr, 0x4
 	.definelabel oToolkit_BattleStatePtr, 0x18
-	.definelabel oToolkit_NaviStats, 0x74
+	.definelabel oToolkit_NaviStatsPtr, 0x74
 
 	.definelabel oJoypad_Held, 0x0
 

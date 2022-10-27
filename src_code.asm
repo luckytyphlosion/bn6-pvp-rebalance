@@ -1,12 +1,15 @@
 
 	.align 2, 0
-; SetOpponentCheckpoint0:
-; 	mov r0, 4
-; 	str r0, [r5]
-; 	ldr r0, =CHECKPOINT_VALUE_0
-; 	ldr r1, =dword_203F5A0
-; 	str r0, [r1]
-; 	mov pc, lr
+CopyNaviStats1ToBattleNaviStats1:
+	push lr
+	mov r0, 4
+	str r0, [r5]
+	mov r0, r10
+	ldr r0, [r0, oToolkit_NaviStatsPtr]
+	ldr r1, =eBattleNaviStats1
+	mov r2, oNaviStats_Size
+	bl CopyWords
+	pop pc
 
 HookOpponentTransferBuffer:
 	push r4,lr

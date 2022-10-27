@@ -11,8 +11,8 @@
 	; bl CheckIfPanelInFieldAndExtendedField
 
 	; hook after battle init
-	; .org 0x8007a3a
-	; bl SetOpponentCheckpoint0
+	.org 0x8007a3a
+	bl CopyNaviStats1ToBattleNaviStats1
 
 	; set max HP to 1000
 	.org 0x8013b80
@@ -96,3 +96,24 @@ ACDCTown_TrainingModeBattleLayout:
 	.org 0x80eb0a4
 	; override panel validity check when moving
 	bl Override_sub_800F964_MovementCheckFunction
+
+	; custom gauge always full
+	.org 0x801DF92
+	push lr
+	ldr r0, [pc, 0x1c] ; =0x4000
+	bl SetCustGauge
+	mov r0, 0x10
+	bl battle_clearFlags
+	pop pc
+
+	; disable folder shuffling
+	.org ShuffleFolderSlice
+	mov pc, lr
+
+	; treat gigas as standard chips (keeps them in place)
+	.org 0x800a590
+	nop
+
+	; ignore chip codes when selecting
+	.org 0x8028f00
+	b 0x8028f3e
