@@ -23,7 +23,7 @@ CFLAGS = -mno-thumb-interwork -std=c11 -iquote include -Wno-trigraphs -mthumb -O
 
 all: $(ROM)
 
-$(ROM): main.o .FORCE
+$(ROM): main.o main_data.o .FORCE
 	rm -f "temp/ACDCTownScript.msg"
 	rm -f "temp/ACDCTownScript.msg.lz"
 	tools/TextPet.exe run-script gen_compressed_text.tps
@@ -37,6 +37,9 @@ $(ROM): main.o .FORCE
 
 main.o: main.c include/*.h
 	$(MODERNCC) $(CFLAGS) -c -o main.o main.c
+
+main_data.o: main_data.c include/*.h
+	$(MODERNCC) $(CFLAGS) -c -o main_data.o main_data.c
 
 clean:
 	rm -f *.o

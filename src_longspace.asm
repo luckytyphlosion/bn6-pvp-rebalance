@@ -100,3 +100,6 @@ UndernetBGAnimDataPalette_NEW:
 	.align 4, 0
 ACDCTownTextScript_NEW:
 	.import "temp/ACDCTownScript.msg.lz"
+
+	.align 4, 0
+	.importobj "main_data.o"

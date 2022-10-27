@@ -18,6 +18,7 @@
 #include "SimulatedOpponent.h"
 #include "PlayerAndOpponentInput.h"
 #include "TransferBuffer.h"
+#include "TrainingModeInfo.h"
 
 extern void CopyWords(void * src, void * dest, u32 size);
 extern void ZeroFillByWord(void * src, u32 size);
@@ -58,27 +59,7 @@ u16 HookPlayerAndOpponentInput_C (void) {
     struct PlayerAndOpponentInput playerAndOpponentInput;
 
     if (ShouldOverrideOpponentTransferBuffer() && !battle_isPaused()) {
-        u16 joypadHeld = eJoypad.held;
-        if (joypadHeld & JOYPAD_SELECT) {
-            if (joypadHeld & JOYPAD_L) {
-                eT1BattleObject0.hp = eT1BattleObject0.flags;
-                eT1BattleObject1.hp = eT1BattleObject1.maxHP;
-                playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
-                playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
-            } else {
-                joypadHeld &= ~JOYPAD_SELECT;
-                if (joypadHeld & JOYPAD_LEFT) {
-                    joypadHeld = (joypadHeld & ~JOYPAD_LEFT) | JOYPAD_RIGHT;
-                } else if (joypadHeld & JOYPAD_RIGHT) {
-                    joypadHeld = (joypadHeld & ~JOYPAD_RIGHT) | JOYPAD_LEFT;
-                }
-                playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
-                playerAndOpponentInput.opponentInput = joypadHeld;
-            }
-        } else {
-            playerAndOpponentInput.playerInput = joypadHeld;
-            playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
-        }
+        playerAndOpponentInput = dTrainingModeInfos[eTrainingModeConfig.mode].inputCallback();
     } else {
         playerAndOpponentInput.playerInput = eJoypad.held;
         playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
@@ -87,7 +68,41 @@ u16 HookPlayerAndOpponentInput_C (void) {
     return playerAndOpponentInput.playerInput;
 }
 
+struct PlayerAndOpponentInput FrameData_InputCallback (void) {
+    struct PlayerAndOpponentInput playerAndOpponentInput;
+
+    u16 joypadHeld = eJoypad.held;
+    if (joypadHeld & JOYPAD_SELECT) {
+        if (joypadHeld & JOYPAD_L) {
+            eT1BattleObject0.hp = eT1BattleObject0.flags;
+            eT1BattleObject1.hp = eT1BattleObject1.maxHP;
+            playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
+            playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
+        } else {
+            joypadHeld &= ~JOYPAD_SELECT;
+            // lazy invert
+            if (joypadHeld & JOYPAD_LEFT) {
+                joypadHeld = (joypadHeld & ~JOYPAD_LEFT) | JOYPAD_RIGHT;
+            } else if (joypadHeld & JOYPAD_RIGHT) {
+                joypadHeld = (joypadHeld & ~JOYPAD_RIGHT) | JOYPAD_LEFT;
+            }
+            playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
+            playerAndOpponentInput.opponentInput = joypadHeld;
+        }
+    } else {
+        playerAndOpponentInput.playerInput = joypadHeld;
+        playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
+    }
+
+    return playerAndOpponentInput;
+}
+
+u8 FrameData_CustConfirmCallback (void) {
+    return 0xff;
+}
+
 void OnCustMenuConfirm_C (void) {
+    u8 chosenForm = dTrainingModeInfos[eTrainingModeConfig.mode].custConfirmCallback();
     SetOpponentFormCheckpointStoreBattleObjectAndPlayConfirmSound(0xff);
 }
 

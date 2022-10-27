@@ -1,5 +1,7 @@
 #pragma once
 
+#include "BattleObject.h"
+
 struct CommBuffer203F658 {
     u8 chosenForm;
     u8 unk_01[3];
