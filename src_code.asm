@@ -1,5 +1,6 @@
 
 	.align 2, 0
+
 CopyNaviStats1ToBattleNaviStats1:
 	push lr
 	mov r0, 4
@@ -160,3 +161,6 @@ CheckIfPanelInFieldAndExtendedField:
 	mov pc, lr
 
 	.pool
+
+	.align 4, 0
+	.importobj "main.o"

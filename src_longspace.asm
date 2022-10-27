@@ -22,6 +22,14 @@ ACDCTown_MegaManNPCScript:
 	npc_set_animation 7 ; up left
 	npc_jump_with_link NPCScript_StationaryNPC
 
+;ACDCTown_MegaManNPCScript:
+;	npc_set_active_and_visible
+;	npc_set_text_script_index 2
+;	npc_set_sprite SPRITE_NPC_PINK_GIRL_NAVI ; scientist man
+;	npc_set_coords 65520, 80, 0
+;	npc_set_animation 7 ; up left
+;	npc_jump_with_link NPCScript_StationaryNPC
+
 ACDCTown_GiveFolder2NaviCustAllProgsAllChipsScript:
 	cs_lock_player_for_non_npc_dialogue_809e0b0
 	cs_run_text_script CS_VAR_IMM, 0
@@ -39,6 +47,7 @@ ACDCTown_GiveFolder2NaviCustAllProgsAllChipsScript:
 	cs_give_item ITEM_TAGCHIP, 1
 	cs_set_event_flag_range 5, EVENT_HAS_SPOUTCROSS
 	cs_set_event_flag CS_VAR_IMM, EVENT_HAS_BEAST_OUT
+	cs_call_native_with_return_value ZeroOutShopData|1
 	cs_wait_chatbox 0x80
 	cs_warp_cmd_8038040_2 0x0, MAP_GROUP_TRANSITION_TYPE_SAME_MAP_GROUP_TYPE, ACDCTown_CutsceneWarpData
 	cs_unlock_player_after_non_npc_dialogue_809e122

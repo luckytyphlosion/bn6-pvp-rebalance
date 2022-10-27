@@ -6,6 +6,7 @@
 	.definelabel byte_203F658, 0x203F658
 	.definelabel dword_203F5A0, 0x203f5a0
 
+	.definelabel ZeroFillByWord, 0x80008e0
 	.definelabel CopyWords, 0x800093c
 	.definelabel battle_isBattleOver, 0x0800a18e
 	.definelabel object_getFlag, 0x0801a166
@@ -28,6 +29,9 @@
 	.definelabel eT1BattleObject1, 0x203aa88
 
 	.definelabel eBattleNaviStats1, 0x0203ce64
+
+	.definelabel eToolkit_ShopData, 0x20032c8
+
 ; ewram freespace at 203f7f0
 
 	.definelabel eSimulatedOpponent, 0x203f7f0
@@ -46,6 +50,7 @@
 
 	.definelabel oToolkit_JoypadPtr, 0x4
 	.definelabel oToolkit_BattleStatePtr, 0x18
+	.definelabel oToolkit_ShopDataPtr, 0x54
 	.definelabel oToolkit_NaviStatsPtr, 0x74
 
 	.definelabel oJoypad_Held, 0x0
