@@ -8,6 +8,8 @@
 	.definelabel EVENT_NAVICUST_ENABLE, 0xf2
 	.definelabel EVENT_402, 0x402
 	.definelabel EVENT_403, 0x403
+	.definelabel EVENT_404_TALKED_TO_MODE_NPC, 0x404
+	.definelabel EVENT_405_IN_MODE_NPC_CUTSCENE, 0x405
 
 	.definelabel EVENT_SOLID_PARTS_COMPRESSION, 0x2664
 	.definelabel EVENT_MAX_PARTS_COMPRESSION, 0x26f8

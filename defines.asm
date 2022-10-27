@@ -1,40 +1,26 @@
 
-	; ignore the byte/word/dword prefix it means nothing
-	; but want to keep labels consistent with disassembly
-	.definelabel eStruct2036780, 0x2036780
-	.definelabel unk_2039A00, 0x2039A00
-	.definelabel byte_203F658, 0x203F658
-	.definelabel dword_203F5A0, 0x203f5a0
+	.arm
+	; dumb workaround when linking
+	; armips has no way to indicate a label is data
+	; which means in the linking stage, externed symbols from an object
+	; will always be treated as functions
+	; thus, temporarily enable arm so that the thumb bit isn't set
 
-	.definelabel ZeroFillByWord, 0x80008e0
-	.definelabel CopyWords, 0x800093c
-	.definelabel battle_isBattleOver, 0x0800a18e
-	.definelabel object_getFlag, 0x0801a166
-
-	.definelabel eOverworldNPCObject0_X, 0x20057d4
-
-	.definelabel NPCScript_StationaryNPC, 0x809f6cc
-
-	.definelabel STARTING_MAP_ADDR, 0x80050e4
-
-	.definelabel PlaySoundEffect, 0x80005cc
-
-	.definelabel ShuffleFolderSlice, 0x8000d12
-	.definelabel battle_clearFlags, 0x800a2e4
-	.definelabel sub_800F964, 0x800F964
-	.definelabel sub_800F9DE, 0x800F9DE
-	.definelabel SetCustGauge, 0x801DFA2
+	; MEMORY
+	.definelabel eToolkit_ShopData, 0x20032c8
+	.definelabel eTrainingModeConfig, 0x20032c8
+	.definelabel eCutsceneState, 0x2011c50
+	.definelabel eJoypad, 0x0200a270
+	.definelabel eBattleState, 0x02034880
 
 	.definelabel eT1BattleObject0, 0x203a9b0
 	.definelabel eT1BattleObject1, 0x203aa88
 
 	.definelabel eBattleNaviStats1, 0x0203ce64
 
-	.definelabel eToolkit_ShopData, 0x20032c8
-
-; ewram freespace at 203f7f0
-
+	.definelabel eOverworldNPCObject0_X, 0x20057d4
 	.definelabel eSimulatedOpponent, 0x203f7f0
+
 	.definelabel oSimulatedOpponent_JoypadHeld, 0x0
 
 	.definelabel oNaviStats_Attack, 0x1
@@ -66,3 +52,38 @@
 	.definelabel oBattleObject_MaxHP, 0x26
 	.definelabel oBattleObject_RelatedObject1Ptr, 0x4c
 	.definelabel oBattleObject_AIDataPtr, 0x58
+
+	; ignore the byte/word/dword prefix it means nothing
+	; but want to keep labels consistent with disassembly
+	.definelabel eStruct2036780, 0x2036780
+	.definelabel unk_2039A00, 0x2039A00
+	.definelabel byte_203F658, 0x203F658
+	.definelabel dword_203F5A0, 0x203f5a0
+
+	.thumb
+	; FUNCTIONS
+
+	.definelabel ZeroFillByWord, 0x80008e0
+	.definelabel CopyWords, 0x800093c
+	.definelabel battle_isBattleOver, 0x0800a18e
+	.definelabel object_getFlag, 0x0801a166
+	.definelabel battle_isPaused, 0x0800a03c
+
+	.definelabel NPCScript_StationaryNPC, 0x809f6cc
+
+	.definelabel STARTING_MAP_ADDR, 0x80050e4
+
+	.definelabel PlaySoundEffect, 0x80005cc
+
+	.definelabel ShuffleFolderSlice, 0x8000d12
+	.definelabel battle_clearFlags, 0x800a2e4
+	.definelabel sub_800F964, 0x800F964
+	.definelabel sub_800F9DE, 0x800F9DE
+	.definelabel SetCustGauge, 0x801DFA2
+
+	; eToolkit_ShopData equ 0x20032c8
+
+	.definelabel call_via_r4, 0x814da70
+
+; ewram freespace at 203f7f0
+

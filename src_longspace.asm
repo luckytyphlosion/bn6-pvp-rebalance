@@ -12,6 +12,10 @@ ACDCTown_ContinuousMapScript_NEW:
 	ms_start_cutscene ACDCTown_StartTrainingModeCutsceneScript, 0x0
 	ms_clear_event_flag CS_VAR_IMM, EVENT_403
 @@doNotStartBattle:
+	ms_jump_if_flag_clear CS_VAR_IMM, EVENT_404_TALKED_TO_MODE_NPC, @@notTalkedToModeNPC
+	ms_start_cutscene ACDCTown_SetTrainingModeCutsceneScript, 0x0
+	ms_clear_event_flag CS_VAR_IMM, EVENT_404_TALKED_TO_MODE_NPC
+@@notTalkedToModeNPC:
 	ms_end
 
 ACDCTown_MegaManNPCScript:
@@ -22,13 +26,13 @@ ACDCTown_MegaManNPCScript:
 	npc_set_animation 7 ; up left
 	npc_jump_with_link NPCScript_StationaryNPC
 
-;ACDCTown_MegaManNPCScript:
-;	npc_set_active_and_visible
-;	npc_set_text_script_index 2
-;	npc_set_sprite SPRITE_NPC_PINK_GIRL_NAVI ; scientist man
-;	npc_set_coords 65520, 80, 0
-;	npc_set_animation 7 ; up left
-;	npc_jump_with_link NPCScript_StationaryNPC
+ACDCTown_TrainingModeNPCScript:
+	npc_set_active_and_visible
+	npc_set_text_script_index 2
+	npc_set_sprite SPRITE_NPC_PINK_GIRL_NAVI ; scientist man
+	npc_set_coords 65520, 80, 0
+	npc_set_animation 7 ; up left
+	npc_jump_with_link NPCScript_StationaryNPC
 
 ACDCTown_GiveFolder2NaviCustAllProgsAllChipsScript:
 	cs_lock_player_for_non_npc_dialogue_809e0b0
@@ -59,12 +63,21 @@ ACDCTown_StartTrainingModeCutsceneScript:
 	cs_unlock_player_after_non_npc_dialogue_809e122
 	cs_end_for_map_reload_maybe_8037c64
 
+ACDCTown_SetTrainingModeCutsceneScript:
+	cs_set_event_flag CS_VAR_IMM, EVENT_405_IN_MODE_NPC_CUTSCENE
+	cs_set_var 4, 0
+	cs_set_var 5, 0
+	cs_wait_var_equal 5, 1
+	cs_call_native_with_return_value SaveChosenTrainingMode|1
+	cs_end_for_map_reload_maybe_8037c64
+
 ACDCTown_MapObjects_NEW:
 	.byte 0xff
 
 	.align 4, 0
 ACDCTown_NPCScripts_NEW:
 	.word ACDCTown_MegaManNPCScript
+	.word ACDCTown_TrainingModeNPCScript
 	.word 0xff
 
 	.align 4, 0

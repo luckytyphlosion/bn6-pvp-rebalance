@@ -15,7 +15,7 @@ CPP = gcc -E
 CPPFLAGS = -iquote include -Wno-trigraphs
 
 # build flags
-CFLAGS = -std=c1x -iquote include -Wno-trigraphs -mthumb -mthumb-interwork -O2 -g -mabi=apcs-gnu -mcpu=arm7tdmi -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -ffixed-r10 -ffixed-r12
+CFLAGS = -mno-thumb-interwork -std=c11 -iquote include -Wno-trigraphs -mthumb -O2 -g -mcpu=arm7tdmi -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -ffixed-r10 -ffixed-r12
 
 .FORCE:
 
@@ -24,8 +24,8 @@ CFLAGS = -std=c1x -iquote include -Wno-trigraphs -mthumb -mthumb-interwork -O2 -
 all: $(ROM)
 
 $(ROM): main.o .FORCE
-	rm "temp/ACDCTownScript.msg"
-	rm "temp/ACDCTownScript.msg.lz"
+	rm -f "temp/ACDCTownScript.msg"
+	rm -f "temp/ACDCTownScript.msg.lz"
 	tools/TextPet.exe run-script gen_compressed_text.tps
 	tools/TextPet.exe run-script gen_text.tps
 	tools/armips.exe lzpad.s
@@ -35,7 +35,7 @@ $(ROM): main.o .FORCE
 
 #@$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o - - | cat - <(echo -e ".text\n\t.align\t2, 0") | 
 
-main.o: main.c
+main.o: main.c include/*.h
 	$(MODERNCC) $(CFLAGS) -c -o main.o main.c
 
 clean:

@@ -35,12 +35,16 @@
 	bl SetOpponentCheckpointAfterRunning
 
 	.org 0x8028D62
-	bl SetOpponentCheckpointFormAndStoreBattleObject
+	bl OnCustMenuConfirm
 	nop
 
 	; prevent jacking in at all
 	.org 0x8034d34
 	b loc_8034d44
+
+	; enable interworking for cs_call_native_with_return_value
+	.org 0x8038030
+	bl call_via_r4
 
 	.org 0x8034d44
 loc_8034d44:
@@ -48,6 +52,10 @@ loc_8034d44:
 	; map text pointer for ACDC Town
 	.org 0x80445E0
 	.word ACDCTownTextScript_NEW
+
+	; don't load in shop data
+	.org 0x8048C98
+	mov pc, lr
 
 	; off_804CF9C, map object pointer for ACDC Town
 	.org 0x804CF9C

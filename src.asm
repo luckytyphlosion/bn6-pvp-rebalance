@@ -1,5 +1,6 @@
 
 	.gba
+
 	.include "macros.asm"
 	.include "defines.asm"
 	.include "constants.asm"
