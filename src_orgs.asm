@@ -14,6 +14,13 @@
 	.org 0x8007a3a
 	bl OnAfterBattleInit
 
+	; chip lockout check
+	.org 0x80107de
+	bl ChipLockoutCheck
+	nop
+	nop
+	nop
+
 	; set max HP to 1000
 	.org 0x8013b80
 	mov r0, 1000 >> 2

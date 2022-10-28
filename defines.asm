@@ -103,6 +103,12 @@
 	.definelabel umodsi3, 0x0814db34
 
 	.definelabel battle_isTimeStop, 0x0800a098
+	.definelabel TestEventFlag, 0x0802f168
+
+	.definelabel sprite_forceWhitePalette, 0x08002db0
+	.definelabel sprite_setFinalPalette, 0x08002db4
+	.definelabel sprite_getFinalPalette, 0x08002dc8
+	.definelabel sprite_clearFinalPalette, 0x08002dd8
 
 ; ewram freespace at 203f7f0
 

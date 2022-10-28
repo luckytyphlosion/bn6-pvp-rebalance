@@ -88,7 +88,7 @@ struct AIData {
     u8 version_16; // loc=0x16
     u8 version_17; // loc=0x17
     u8 unk_18; // loc=0x18
-    u8 unk_19; // loc=0x19
+    u8 chipLockoutTimer; // loc=0x19
     u8 unk_1a; // loc=0x1a
     u8 unk_1b; // loc=0x1b
     u8 unk_1c; // loc=0x1c

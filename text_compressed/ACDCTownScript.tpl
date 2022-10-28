@@ -1,5 +1,5 @@
 @archive ACDCTownScript
-@size 6
+@size 12
 
 script 0 mmbn6 {
 	msgOpen
@@ -180,3 +180,104 @@ script 5 mmbn6 {
     value = 1
   end
 }
+
+script 6 mmbn6 {
+  end
+}
+script 7 mmbn6 {
+  end
+}
+script 8 mmbn6 {
+  end
+}
+script 9 mmbn6 {
+  end
+}
+
+script 10 mmbn6 {
+  msgOpen
+  mugshotShow
+    mugshot = 0x3e
+
+  """
+  Enable chip lockout
+  frames?
+  """
+  keyWait
+    any = false
+  clearMsg
+
+  textSpeed
+    delay = 0
+
+	positionOptionHorizontal
+		width = 7
+	option
+		brackets = 0
+		left = 1
+		right = 1
+		up = 0
+		down = 0
+	space
+		count = 1
+	" Yes  "
+	option
+		brackets = 0
+		left = 0
+		right = 0
+		up = 1
+		down = 1
+	space
+		count = 1
+	" No"
+
+	textSpeed
+		delay = 2
+
+	select
+		default = 0
+		BSeparate = false
+		disableB = false
+		clear = false
+		targets = [
+			jump = 11,
+			jump = continue,
+			jump = 11
+		]
+  clearMsg
+  soundDisableTextSFX
+  soundPlay
+    track = 104
+	soundEnableTextSFX
+
+  """
+  Chip lockout frames
+  disabled.
+  """
+  keyWait
+    any = false
+  flagClear
+    flag = 0x406
+  end
+}
+
+script 11 mmbn6 {
+  clearMsg
+
+  soundDisableTextSFX
+	soundPlay
+		track = 386
+	soundEnableTextSFX
+
+  """
+  Chip lockout frames
+  enabled!
+  """
+  keyWait
+    any = false
+  clearMsg
+  flagSet
+    flag = 0x406
+  end
+}
+

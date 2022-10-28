@@ -30,6 +30,9 @@ extern void PlaySoundEffect(u32 soundEffect);
 extern u32 GetRNG1(void);
 extern u32 GetRNG2(void);
 extern bool32 battle_isTimeStop(void);
+extern bool32 TestEventFlag_CBind(u16 eventFlag);
+extern void sprite_forceWhitePalette_CBind(struct BattleObject * obj);
+extern void sprite_clearFinalPalette_CBind(struct BattleObject * obj);
 
 void SetOpponentFormCheckpointStoreBattleObjectAndPlayConfirmSound(u8 chosenForm);
 void CopyNaviStats1ToBattleNaviStats1(void);
@@ -353,4 +356,18 @@ void SetOpponentFormCheckpointStoreBattleObjectAndPlayConfirmSound (u8 chosenFor
     byte_203F658.unkBattleObjectPtr = &eT1BattleObject1;
     dword_203F5A0 = CHECKPOINT_VALUE_1;
     PlaySoundEffect(SOUND_SELECT_82);
+}
+
+void ChipLockoutCheck_C (struct AIData * aiData, struct BattleObject * obj) {
+    bool32 chipLockoutFramesEnabled = TestEventFlag_CBind(EVENT_CHIP_LOCKOUT_FRAMES);
+    if (aiData->chipLockoutTimer) {
+        aiData->chipLockoutTimer--;
+        if (chipLockoutFramesEnabled) {
+            if (aiData->chipLockoutTimer) {
+                sprite_forceWhitePalette_CBind(obj);
+            } else {
+                sprite_clearFinalPalette_CBind(obj);
+            }
+        }
+    }
 }

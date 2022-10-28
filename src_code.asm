@@ -126,6 +126,31 @@ CheckIfPanelInFieldAndExtendedField:
 @@done:
 	mov pc, lr
 
+ChipLockoutCheck:
+	push lr
+	mov r0, r4 ; ai data
+	mov r1, r5 ; battle object
+	bl ChipLockoutCheck_C
+	pop pc
+
+TestEventFlag_CBind:
+	push lr
+	bl TestEventFlag
+	and r0, r1
+	pop pc
+
+sprite_forceWhitePalette_CBind:
+	push r5, lr
+	mov r0, r5
+	bl sprite_forceWhitePalette
+	pop r5, pc
+
+sprite_clearFinalPalette_CBind:
+	push r5, lr
+	mov r0, r5
+	bl sprite_clearFinalPalette
+	pop r5, pc
+
 	.pool
 
 	.align 4, 0

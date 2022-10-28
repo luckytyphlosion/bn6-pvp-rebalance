@@ -34,6 +34,14 @@ ACDCTown_TrainingModeNPCScript:
 	npc_set_animation 7 ; up left
 	npc_jump_with_link NPCScript_StationaryNPC
 
+ACDCTown_ChipLockoutNPCScript:
+	npc_set_active_and_visible
+	npc_set_text_script_index 10
+	npc_set_sprite SPRITE_NPC_GREEN_NAVI ; scientist man
+	npc_set_coords 20, 162, 0
+	npc_set_animation 7 ; up left
+	npc_jump_with_link NPCScript_StationaryNPC
+
 ACDCTown_GiveFolder2NaviCustAllProgsAllChipsScript:
 	cs_lock_player_for_non_npc_dialogue_809e0b0
 	cs_run_text_script CS_VAR_IMM, 0
@@ -84,6 +92,7 @@ ACDCTown_MapObjects_NEW:
 ACDCTown_NPCScripts_NEW:
 	.word ACDCTown_MegaManNPCScript
 	.word ACDCTown_TrainingModeNPCScript
+	.word ACDCTown_ChipLockoutNPCScript
 	.word 0xff
 
 	.align 4, 0
