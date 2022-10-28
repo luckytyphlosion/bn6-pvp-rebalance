@@ -16,17 +16,18 @@ struct GenericOpponentState {
     u8 runAction; // 0x2
     u8 actionState; // 0x3
     u8 movementDirection; // 0x4
-    u16 input; // 0x6
-    u16 stickyInput; // 0x8
+    u16 globalFrameCounter;
+    u16 input;
+    u16 stickyInput;
     union {
         // elec cross dodging
         struct {
-            u8 randomSteps; // 0xa
+            u8 randomSteps;
         };
         // BDT dodging
         struct {
-            u8 bdtState; // 0xa
-            u8 bdtChargeTimer; // 0xb
+            u8 bdtState;
+            u8 bdtChargeTimer;
         };
     };
 };

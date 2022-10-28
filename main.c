@@ -172,6 +172,9 @@ struct PlayerAndOpponentInput GenericOpponent_HandleInput (struct GenericOpponen
     if (GenericOpponent_IsDeleted()) {
         playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
     } else {
+        if (oppState->globalFrameCounter > 0) {
+            oppState->globalFrameCounter--;
+        }
         do {
             oppState->runAction = FALSE;
             oppState->input = 0;
@@ -303,13 +306,26 @@ void BDTDodging_DecideActionMain (struct GenericOpponentInfo * oppInfo) {
         oppState->bdtState = BDT_STATE_CHARGE_BDT;
     case BDT_STATE_CHARGE_BDT:
         GenericOpponent_AddStickyInput(oppState, JOYPAD_B);
-        oppState->bdtChargeTimer = 201;
+        oppState->globalFrameCounter = 201;
         oppState->bdtState = BDT_STATE_RELEASE_BDT;
     case BDT_STATE_RELEASE_BDT:
-        if (--oppState->bdtChargeTimer == 0) {
+        if (oppState->globalFrameCounter == 0) {
             GenericOpponent_RemoveStickyInput(oppState, JOYPAD_B);
             GenericOpponent_SetAction(oppState, ACTION_WAIT_ATTACK, FALSE);
             oppState->bdtState = BDT_STATE_CHARGE_BDT;
+        } else {
+            u8 playerPanelY = eT1BattleObject0.panelY;
+            u8 oppPanelY = eT1BattleObject1.panelY;
+            if (playerPanelY != oppPanelY) {
+                u16 moveDirection;
+                if (playerPanelY < oppPanelY) {
+                    moveDirection = JOYPAD_UP;
+                } else {
+                    moveDirection = JOYPAD_DOWN;
+                }
+                GenericOpponent_AddStickyInput(oppState, moveDirection);
+                GenericOpponent_SetAction(oppState, ACTION_WAIT_MOVEMENT, FALSE);
+            }
         }
     }
 }
