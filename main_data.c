@@ -10,7 +10,11 @@ struct TrainingModeInfo dTrainingModeInfos[] = {
         .custConfirmCallback = FrameData_CustConfirmCallback
     },
     {
-        .inputCallback = FrameData_InputCallback,
-        .custConfirmCallback = FrameData_CustConfirmCallback
+        .inputCallback = ElecCrossDodging_InputCallback,
+        .custConfirmCallback = ElecCrossDodging_CustConfirmCallback
     }
+};
+
+struct GenericOpponentInfo dElecCrossDodgingInfo = {
+    .decideActionMainCallback = ElecCrossDodging_DecideActionMain  
 };

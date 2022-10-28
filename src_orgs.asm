@@ -12,7 +12,7 @@
 
 	; hook after battle init
 	.org 0x8007a3a
-	bl CopyNaviStats1ToBattleNaviStats1
+	bl OnAfterBattleInit
 
 	; set max HP to 1000
 	.org 0x8013b80
@@ -85,6 +85,17 @@ loc_8034d44:
 	.byte 0x15 ; Music
 	.byte 0x00 ; Battle Mode
 	.byte 15 ; Background (Undernet)
+	.byte 0x00 ; Battle Count
+	.byte 0x38 ; Panel pattern
+	.byte 0x00 ; byte7
+	.word 0x004198D5 | 0x20
+	.word ACDCTown_TrainingModeBattleLayout
+
+	.byte 0x00 ; Battlefield
+	.byte 0x00 ; byte1
+	.byte 0x15 ; Music
+	.byte 0x00 ; Battle Mode
+	.byte 0x7 ; Background (Generic BG)
 	.byte 0x00 ; Battle Count
 	.byte 0x38 ; Panel pattern
 	.byte 0x00 ; byte7

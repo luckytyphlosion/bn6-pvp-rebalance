@@ -37,6 +37,9 @@ script 2 mmbn6 {
     flag = 0x405
 
   msgOpen
+  mugshotShow
+    mugshot = 0x45
+
   """
   Choose training
   mode option!
@@ -50,7 +53,7 @@ script 2 mmbn6 {
 
   option // 0
     brackets = 0
-    left = 3
+    left = 1
     right = 1
     up = 0
     down = 0
@@ -83,6 +86,12 @@ script 2 mmbn6 {
       jump = continue
 		]
   clearMsg
+
+  soundDisableTextSFX
+  soundPlay
+    track = 104
+	soundEnableTextSFX
+
   storeGlobal
     global = 0
     value = 0xff
@@ -93,6 +102,11 @@ script 2 mmbn6 {
 }
 
 script 3 mmbn6 {
+  soundDisableTextSFX
+	soundPlay
+		track = 386
+	soundEnableTextSFX
+
   storeGlobal
     global = 0
     value = 0
@@ -111,6 +125,11 @@ script 3 mmbn6 {
 }
 
 script 4 mmbn6 {
+  soundDisableTextSFX
+	soundPlay
+		track = 386
+	soundEnableTextSFX
+
   storeGlobal
     global = 0
     value = 1

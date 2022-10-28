@@ -31,4 +31,7 @@ typedef vu8  vbool8;
 typedef vu16 vbool16;
 typedef vu32 vbool32;
 
+#define TRUE 1
+#define FALSE 0
+
 #endif // GUARD_GBA_TYPES_H

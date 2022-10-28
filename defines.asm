@@ -9,6 +9,12 @@
 	; MEMORY
 	.definelabel eToolkit_ShopData, 0x20032c8
 	.definelabel eTrainingModeConfig, 0x20032c8
+	.definelabel eTrainingModeConfig_Mode, 0x20032c8
+	.definelabel oTrainingModeConfig_Mode, 0x0
+
+	.definelabel TRAINING_MODE_FRAME_DATA, 0
+	.definelabel TRAINING_MODE_ELEC_CROSS_DODGING, 1
+	
 	.definelabel eCutsceneState, 0x2011c50
 	.definelabel eJoypad, 0x0200a270
 	.definelabel eBattleState, 0x02034880
@@ -16,12 +22,18 @@
 	.definelabel eT1BattleObject0, 0x203a9b0
 	.definelabel eT1BattleObject1, 0x203aa88
 
+	.definelabel eBattleNaviStats, 0x203ce00
 	.definelabel eBattleNaviStats1, 0x0203ce64
 
 	.definelabel eOverworldNPCObject0_X, 0x20057d4
-	.definelabel eSimulatedOpponent, 0x203f7f0
+
+	; NEW MEMORY
+	.definelabel eXoshiro128ppState, 0x203f7f0
+	.definelabel eSimulatedOpponent, 0x203f800
 
 	.definelabel oSimulatedOpponent_JoypadHeld, 0x0
+
+	.definelabel eNaviStats, 0x20047cc
 
 	.definelabel oNaviStats_Attack, 0x1
 	.definelabel oNaviStats_Speed, 0x2
@@ -75,6 +87,9 @@
 
 	.definelabel PlaySoundEffect, 0x80005cc
 
+	.definelabel GetRNG2, 0x0800151c
+	.definelabel GetRNG1, 0x0800154c
+
 	.definelabel ShuffleFolderSlice, 0x8000d12
 	.definelabel battle_clearFlags, 0x800a2e4
 	.definelabel sub_800F964, 0x800F964
@@ -84,6 +99,7 @@
 	; eToolkit_ShopData equ 0x20032c8
 
 	.definelabel call_via_r4, 0x814da70
+	.definelabel umodsi3, 0x0814db34
 
 ; ewram freespace at 203f7f0
 

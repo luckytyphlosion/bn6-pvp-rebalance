@@ -1,15 +1,15 @@
 
 	.align 2, 0
 
-CopyNaviStats1ToBattleNaviStats1:
-	push lr
+OnAfterBattleInit:
 	mov r0, 4
 	str r0, [r5]
-	mov r0, r10
-	ldr r0, [r0, oToolkit_NaviStatsPtr]
-	ldr r1, =eBattleNaviStats1
-	mov r2, oNaviStats_Size
-	bl CopyWords
+	push lr
+	mov r0, r12
+	push r0
+	bl OnAfterBattleInit_C
+	pop r0
+	mov r12, r0
 	pop pc
 
 ; HookOpponentTransferBuffer:
@@ -70,7 +70,16 @@ SetOpponentCheckpointAfterRunning:
 
 Override_sub_800F964_MovementCheckFunction:
 	push r6,r7
-
+	ldr r2, =eTrainingModeConfig
+	ldrb r2, [r2, oTrainingModeConfig_Mode]
+	cmp r2, TRAINING_MODE_FRAME_DATA
+	beq @@overrideForFrameData
+	push lr
+	bl sub_800F964
+	pop r2
+	pop r6,r7
+	mov pc, r2
+@@overrideForFrameData:
 	mov r6, r0
 	bl object_getFlag
 	mov r1, 1
@@ -121,3 +130,6 @@ CheckIfPanelInFieldAndExtendedField:
 
 	.align 4, 0
 	.importobj "main.o"
+	.align 4, 0
+	.importobj "xoshiro128pp.o"
+

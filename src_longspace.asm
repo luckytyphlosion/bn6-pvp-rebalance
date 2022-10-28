@@ -59,7 +59,12 @@ ACDCTown_GiveFolder2NaviCustAllProgsAllChipsScript:
 
 ACDCTown_StartTrainingModeCutsceneScript:
 	cs_lock_player_for_non_npc_dialogue_809e0b0
+	cs_jump_if_byte_equals eTrainingModeConfig_Mode, @@undernetBGBattle, 0
+	cs_start_fixed_battle 9
+	cs_jump @@afterStartBattle
+@@undernetBGBattle:
 	cs_start_fixed_battle 8
+@@afterStartBattle:
 	cs_unlock_player_after_non_npc_dialogue_809e122
 	cs_end_for_map_reload_maybe_8037c64
 

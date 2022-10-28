@@ -17,13 +17,15 @@ CPPFLAGS = -iquote include -Wno-trigraphs
 # build flags
 CFLAGS = -mno-thumb-interwork -std=c11 -iquote include -Wno-trigraphs -mthumb -O2 -g -mcpu=arm7tdmi -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -ffixed-r10 -ffixed-r12
 
+CFLAGS_NO_INCLUDE = -mno-thumb-interwork -std=c11 -Wno-trigraphs -mthumb -O2 -g -mcpu=arm7tdmi -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -ffixed-r10 -ffixed-r12
+
 .FORCE:
 
 # TODO: INTEGRATE SCAN INCLUDES
 
 all: $(ROM)
 
-$(ROM): main.o main_data.o .FORCE
+$(ROM): main.o main_data.o xoshiro128pp.o .FORCE
 	rm -f "temp/ACDCTownScript.msg"
 	rm -f "temp/ACDCTownScript.msg.lz"
 	tools/TextPet.exe run-script gen_compressed_text.tps
@@ -40,6 +42,9 @@ main.o: main.c include/*.h
 
 main_data.o: main_data.c include/*.h
 	$(MODERNCC) $(CFLAGS) -c -o main_data.o main_data.c
+
+xoshiro128pp.o: xoshiro128pp.c include/xoshiro128pp.h
+	$(MODERNCC) $(CFLAGS_NO_INCLUDE) -c -o xoshiro128pp.o xoshiro128pp.c
 
 clean:
 	rm -f *.o
