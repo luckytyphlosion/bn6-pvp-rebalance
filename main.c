@@ -19,6 +19,7 @@
 #include "PlayerAndOpponentInput.h"
 #include "TransferBuffer.h"
 #include "TrainingModeInfo.h"
+#include "BattleHand.h"
 
 #include "xoshiro128pp.h"
 
@@ -28,6 +29,7 @@ extern bool32 battle_isPaused(void);
 extern void PlaySoundEffect(u32 soundEffect);
 extern u32 GetRNG1(void);
 extern u32 GetRNG2(void);
+extern bool32 battle_isTimeStop(void);
 
 void SetOpponentFormCheckpointStoreBattleObjectAndPlayConfirmSound(u8 chosenForm);
 void CopyNaviStats1ToBattleNaviStats1(void);
@@ -156,6 +158,13 @@ bool32 GenericOpponent_IsFlinchingParalyzedPushedFreezedOrBubbled (void) {
     return eT1BattleObject1.curAction >= 0x3 && eT1BattleObject1.curAction <= 0x7;
 }
 
+bool32 GenericOpponent_GiveChipAtSlot0 (u16 chip, u16 damage) {
+    eOpponentBattleHand.curChipIndex = 0;
+    eOpponentBattleHand.chips[0] = chip;
+    eOpponentBattleHand.chips[1] = 0xffff;
+    eOpponentBattleHand.damages[0] = damage;
+}
+    
 struct PlayerAndOpponentInput GenericOpponent_HandleInput (struct GenericOpponentInfo * oppInfo) {
     struct PlayerAndOpponentInput playerAndOpponentInput;
     struct GenericOpponentState * oppState = &eSimulatedOpponent.oppState;
@@ -266,6 +275,51 @@ u8 DecayRandom1in4 (void) {
         }
     }
     return count;
+}
+
+enum BDTState {
+    BDT_STATE_GIVE_BDT = 0,
+    BDT_STATE_USE_BDT,
+    BDT_STATE_MOVE_RIGHT,
+    BDT_STATE_CHARGE_BDT,
+    BDT_STATE_RELEASE_BDT
+};
+
+void BDTDodging_DecideActionMain (struct GenericOpponentInfo * oppInfo) {
+    struct GenericOpponentState * oppState = &eSimulatedOpponent.oppState;
+
+    switch (oppState->bdtState) {
+    case BDT_STATE_GIVE_BDT:
+        GenericOpponent_GiveChipAtSlot0(CHIP_BGDTHTHD, 0);
+        oppState->bdtState = BDT_STATE_USE_BDT;
+    case BDT_STATE_USE_BDT:
+        GenericOpponent_AddStickyInput(oppState, JOYPAD_A);
+        GenericOpponent_SetAction(oppState, ACTION_WAIT_ATTACK, FALSE);
+        oppState->bdtState = BDT_STATE_MOVE_RIGHT;
+        break;
+    case BDT_STATE_MOVE_RIGHT:
+        GenericOpponent_AddStickyInput(oppState, JOYPAD_RIGHT);
+        GenericOpponent_SetAction(oppState, ACTION_WAIT_MOVEMENT, FALSE);
+        oppState->bdtState = BDT_STATE_CHARGE_BDT;
+    case BDT_STATE_CHARGE_BDT:
+        GenericOpponent_AddStickyInput(oppState, JOYPAD_B);
+        oppState->bdtChargeTimer = 201;
+        oppState->bdtState = BDT_STATE_RELEASE_BDT;
+    case BDT_STATE_RELEASE_BDT:
+        if (--oppState->bdtChargeTimer == 0) {
+            GenericOpponent_RemoveStickyInput(oppState, JOYPAD_B);
+            GenericOpponent_SetAction(oppState, ACTION_WAIT_ATTACK, FALSE);
+            oppState->bdtState = BDT_STATE_CHARGE_BDT;
+        }
+    }
+}
+
+struct PlayerAndOpponentInput BDTDodging_InputCallback (void) {
+    return GenericOpponent_HandleInput(&dBDTDodgingInfo);
+}
+
+u8 BDTDodging_CustConfirmCallback (void) {
+    return 0xff;
 }
 
 u8 FrameData_CustConfirmCallback (void) {

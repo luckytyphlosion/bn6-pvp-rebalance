@@ -51,6 +51,7 @@ ACDCTown_GiveFolder2NaviCustAllProgsAllChipsScript:
 	cs_give_item ITEM_TAGCHIP, 1
 	cs_set_event_flag_range 5, EVENT_HAS_SPOUTCROSS
 	cs_set_event_flag CS_VAR_IMM, EVENT_HAS_BEAST_OUT
+	cs_give_bugfrags 9999
 	cs_call_native_with_return_value ZeroOutShopData|1
 	cs_wait_chatbox 0x80
 	cs_warp_cmd_8038040_2 0x0, MAP_GROUP_TRANSITION_TYPE_SAME_MAP_GROUP_TYPE, ACDCTown_CutsceneWarpData

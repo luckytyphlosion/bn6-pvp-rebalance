@@ -26,6 +26,7 @@
 	.definelabel eBattleNaviStats1, 0x0203ce64
 
 	.definelabel eOverworldNPCObject0_X, 0x20057d4
+	.definelabel eOpponentBattleHand, 0x2034a10
 
 	; NEW MEMORY
 	.definelabel eXoshiro128ppState, 0x203f7f0
@@ -100,6 +101,8 @@
 
 	.definelabel call_via_r4, 0x814da70
 	.definelabel umodsi3, 0x0814db34
+
+	.definelabel battle_isTimeStop, 0x0800a098
 
 ; ewram freespace at 203f7f0
 

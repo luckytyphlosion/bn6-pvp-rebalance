@@ -12,9 +12,17 @@ struct TrainingModeInfo dTrainingModeInfos[] = {
     {
         .inputCallback = ElecCrossDodging_InputCallback,
         .custConfirmCallback = ElecCrossDodging_CustConfirmCallback
+    },
+    {
+        .inputCallback = BDTDodging_InputCallback,
+        .custConfirmCallback = BDTDodging_CustConfirmCallback
     }
 };
 
 struct GenericOpponentInfo dElecCrossDodgingInfo = {
     .decideActionMainCallback = ElecCrossDodging_DecideActionMain  
+};
+
+struct GenericOpponentInfo dBDTDodgingInfo = {
+    .decideActionMainCallback = BDTDodging_DecideActionMain  
 };

@@ -19,8 +19,14 @@ struct GenericOpponentState {
     u16 input; // 0x6
     u16 stickyInput; // 0x8
     union {
+        // elec cross dodging
         struct {
             u8 randomSteps; // 0xa
+        };
+        // BDT dodging
+        struct {
+            u8 bdtState; // 0xa
+            u8 bdtChargeTimer; // 0xb
         };
     };
 };

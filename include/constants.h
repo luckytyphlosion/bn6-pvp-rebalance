@@ -10,3 +10,5 @@
 #define DIRECTION_LEFT 1
 #define DIRECTION_UP 2
 #define DIRECTION_DOWN 3
+
+#define CHIP_BGDTHTHD 0x136

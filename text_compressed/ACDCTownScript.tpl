@@ -1,5 +1,5 @@
 @archive ACDCTownScript
-@size 5
+@size 6
 
 script 0 mmbn6 {
 	msgOpen
@@ -55,8 +55,8 @@ script 2 mmbn6 {
     brackets = 0
     left = 1
     right = 1
-    up = 0
-    down = 0
+    up = 2
+    down = 2
   space
     count = 1
   "FrameData"
@@ -65,11 +65,21 @@ script 2 mmbn6 {
     brackets = 0
     left = 0
     right = 0
-    up = 1
-    down = 1
+    up = 2
+    down = 2
   space
     count = 1
-  "ElecDodge"
+  "ElecDodge\n"
+
+  option // 2
+    brackets = 0
+    left = 2
+    right = 2
+    up = 0
+    down = 0
+  space
+    count = 1
+  "BDTDodge"
 
 	textSpeed
 		delay = 2
@@ -83,6 +93,7 @@ script 2 mmbn6 {
 		targets = [
 			jump = 3,
 			jump = 4,
+      jump = 5,
       jump = continue
 		]
   clearMsg
@@ -136,6 +147,29 @@ script 4 mmbn6 {
 
   """
   Chose ElecCross
+  dodging mode!
+  """
+  keyWait
+    any = false
+  clearMsg
+  storeGlobal
+    global = 1
+    value = 1
+  end
+}
+
+script 5 mmbn6 {
+  soundDisableTextSFX
+	soundPlay
+		track = 386
+	soundEnableTextSFX
+
+  storeGlobal
+    global = 0
+    value = 2
+
+  """
+  Chose BDT
   dodging mode!
   """
   keyWait
