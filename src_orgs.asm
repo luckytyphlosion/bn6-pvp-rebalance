@@ -3,6 +3,18 @@
 	.byte GROUP_ACDC_TOWN
 	.byte MAP_ACDC_TOWN
 
+	; fix sprite alpha (have to used fixed value since gba can't do different alpha values)
+	; .org 0x8002c9e
+	; mov r2, 0x40
+	; orr r1, r2
+	; strb r1, [r3]
+	; mov r0, 8
+	; strb r0, [r3,#2]
+	; sub r0, #0x10
+	; neg r0, r0
+	; strb r0, [r3,#3]
+	; nop
+
 	; prevent warps
 	.org 0x80058d0
 	mov pc, lr
@@ -25,6 +37,20 @@
 	.org 0x8013b80
 	mov r0, 1000 >> 2
 	lsl r0, r0, 2
+
+	;;; enable alpha while invis happens
+	;;.org 0x8016958
+	;;bl DoInvisFlashingFlickerAndRemoveShadow
+	;;b 0x8016964
+	;;
+	;;; disable alpha after invis stops
+	;;.org 0x801A634
+	;;bl HookEnableShadowForInvis
+	;;
+	;;; disable alpha after flashing stops
+	;;.org 0x801B326
+	;;bl HookEnableShadowForInvis
+
 
 	; buffer copy ask your uncle weenie
 	.org 0x801FEDC

@@ -34,4 +34,6 @@ typedef vu32 vbool32;
 #define TRUE 1
 #define FALSE 0
 
+#define RGB(r, g, b)  ((r) | ((g) << 5) | ((b) << 10))
+
 #endif // GUARD_GBA_TYPES_H

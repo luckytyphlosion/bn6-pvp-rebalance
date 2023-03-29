@@ -133,6 +133,39 @@ ChipLockoutCheck:
 	bl ChipLockoutCheck_C
 	pop pc
 
+InvisFlashingSetAlpha:
+	push lr
+	lsr r0, r0, #2
+	bcc @@noAlpha
+	bl sprite_setAlpha_8002c7a
+	b @@done
+@@noAlpha:
+	bl sprite_disableAlpha
+@@done:
+	pop pc
+
+DoInvisFlashingFlickerAndRemoveShadow:
+	push lr
+	tst r0, r0
+	beq @@done
+	push r0
+	bl sprite_removeShadow
+	pop r0
+	lsr r0, r0, 2
+	bcc @@done
+	ldrb r0, [r5, oObjectHeader_Flags]
+	mov r1, 2
+	bic r0, r1
+	strb r0, [r5, oObjectHeader_Flags]
+@@done:
+	pop pc
+
+HookEnableShadowForInvis:
+	push lr
+	bl object_clearFlag
+	bl sprite_hasShadow
+	pop pc
+
 TestEventFlag_CBind:
 	push lr
 	bl TestEventFlag
@@ -141,14 +174,33 @@ TestEventFlag_CBind:
 
 sprite_forceWhitePalette_CBind:
 	push r5, lr
-	mov r0, r5
+	mov r5, r0
 	bl sprite_forceWhitePalette
+	pop r5, pc
+
+sprite_setFinalPalette_CBind:
+	push r5, lr
+	mov r5, r0	
+	bl sprite_setFinalPalette
 	pop r5, pc
 
 sprite_clearFinalPalette_CBind:
 	push r5, lr
-	mov r0, r5
+	mov r5, r0
 	bl sprite_clearFinalPalette
+	pop r5, pc
+
+sprite_setColorShader_CBind:
+	push r5, lr
+	mov r5, r0
+	mov r0, r1
+	bl sprite_setColorShader
+	pop r5, pc
+
+sprite_zeroColorShader_CBind:
+	push r5, lr
+	mov r5, r0
+	bl sprite_zeroColorShader
 	pop r5, pc
 
 	.pool

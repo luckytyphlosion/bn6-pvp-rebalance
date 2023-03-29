@@ -58,6 +58,8 @@
 	.definelabel oBattleState_Unk_01, 0x1
 	.definelabel oBattleState_Unk_05, 0x5
 
+	.definelabel oObjectHeader_Flags, 0x0
+
 	.definelabel oBattleObject_PanelX, 0x12
 	.definelabel oBattleObject_PanelY, 0x13
 	.definelabel oBattleObject_Alliance, 0x16
@@ -109,6 +111,13 @@
 	.definelabel sprite_setFinalPalette, 0x08002db4
 	.definelabel sprite_getFinalPalette, 0x08002dc8
 	.definelabel sprite_clearFinalPalette, 0x08002dd8
+	.definelabel sprite_setColorShader, 0x08002ed0
+	.definelabel sprite_zeroColorShader, 0x08002ee8
+	.definelabel object_clearFlag, 0x0801a15c
+	.definelabel sprite_disableAlpha, 0x08002cce
+	.definelabel sprite_setAlpha_8002c7a, 0x8002c7a
+	.definelabel sprite_hasShadow, 0x08002e3c
+	.definelabel sprite_removeShadow, 0x08002e52
 
 ; ewram freespace at 203f7f0
 

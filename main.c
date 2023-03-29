@@ -33,6 +33,9 @@ extern bool32 battle_isTimeStop(void);
 extern bool32 TestEventFlag_CBind(u16 eventFlag);
 extern void sprite_forceWhitePalette_CBind(struct BattleObject * obj);
 extern void sprite_clearFinalPalette_CBind(struct BattleObject * obj);
+extern void sprite_setFinalPalette_CBind(struct BattleObject * obj, u8 palette);
+extern void sprite_setColorShader_CBind(struct BattleObject * obj, u16 colorShader);
+extern void sprite_zeroColorShader_CBind(struct BattleObject * obj);
 
 void SetOpponentFormCheckpointStoreBattleObjectAndPlayConfirmSound(u8 chosenForm);
 void CopyNaviStats1ToBattleNaviStats1(void);
@@ -364,9 +367,9 @@ void ChipLockoutCheck_C (struct AIData * aiData, struct BattleObject * obj) {
         aiData->chipLockoutTimer--;
         if (chipLockoutFramesEnabled) {
             if (aiData->chipLockoutTimer) {
-                sprite_forceWhitePalette_CBind(obj);
+                sprite_setColorShader_CBind(obj, RGB(0, 31, 0));
             } else {
-                sprite_clearFinalPalette_CBind(obj);
+                sprite_zeroColorShader_CBind(obj);
             }
         }
     }
