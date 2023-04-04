@@ -166,6 +166,12 @@ ACDCTown_TrainingModeBattleLayout:
 	.org 0x800a590
 	nop
 
+	; opponent copies player hand in frame data mode
+	.org 0x800B3D8
+	push r4, lr
+	bl CopyHandBuffersToPlayers
+	b 0x800B408
+
 	; ignore chip codes when selecting
 	.org 0x8028f00
 	b 0x8028f3e

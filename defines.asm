@@ -26,7 +26,9 @@
 	.definelabel eBattleNaviStats1, 0x0203ce64
 
 	.definelabel eOverworldNPCObject0_X, 0x20057d4
+	.definelabel ePlayerBattleHand, 0x20349C0
 	.definelabel eOpponentBattleHand, 0x2034a10
+	.definelabel ePlayerBattleHandSource_203F4A4, 0x203F4A4
 
 	; NEW MEMORY
 	.definelabel eXoshiro128ppState, 0x203f7f0

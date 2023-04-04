@@ -2,21 +2,21 @@
 @size 12
 
 script 0 mmbn6 {
-	msgOpen
-	"Making PVP Save!"
+  msgOpen
+  "Making PVP Save!"
   itemGiveAllChips
-	callGiveAllNaviCustPrograms
-	startGiveFolder
-		slot = 1
-		folder = 1
-	keyWait
-		any = false
-	end
+  callGiveAllNaviCustPrograms
+  startGiveFolder
+    slot = 1
+    folder = 1
+  keyWait
+    any = false
+  end
 }
 
 script 1 mmbn6 {
   flagSet
-		flag = 0x403
+    flag = 0x403
   end
 }
 
@@ -81,27 +81,27 @@ script 2 mmbn6 {
     count = 1
   "BDTDodge"
 
-	textSpeed
-		delay = 2
+  textSpeed
+    delay = 2
 
   soundDisableChoiceSFX
-	select
-		default = 0
-		BSeparate = true
-		disableB = false
-		clear = false
-		targets = [
-			jump = 3,
-			jump = 4,
+  select
+    default = 0
+    BSeparate = true
+    disableB = false
+    clear = false
+    targets = [
+      jump = 3,
+      jump = 4,
       jump = 5,
       jump = continue
-		]
+    ]
   clearMsg
 
   soundDisableTextSFX
   soundPlay
     track = 104
-	soundEnableTextSFX
+  soundEnableTextSFX
 
   storeGlobal
     global = 0
@@ -114,9 +114,9 @@ script 2 mmbn6 {
 
 script 3 mmbn6 {
   soundDisableTextSFX
-	soundPlay
-		track = 386
-	soundEnableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
 
   storeGlobal
     global = 0
@@ -137,9 +137,9 @@ script 3 mmbn6 {
 
 script 4 mmbn6 {
   soundDisableTextSFX
-	soundPlay
-		track = 386
-	soundEnableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
 
   storeGlobal
     global = 0
@@ -160,9 +160,9 @@ script 4 mmbn6 {
 
 script 5 mmbn6 {
   soundDisableTextSFX
-	soundPlay
-		track = 386
-	soundEnableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
 
   storeGlobal
     global = 0
@@ -184,12 +184,15 @@ script 5 mmbn6 {
 script 6 mmbn6 {
   end
 }
+
 script 7 mmbn6 {
   end
 }
+
 script 8 mmbn6 {
   end
 }
+
 script 9 mmbn6 {
   end
 }
@@ -210,45 +213,45 @@ script 10 mmbn6 {
   textSpeed
     delay = 0
 
-	positionOptionHorizontal
-		width = 7
-	option
-		brackets = 0
-		left = 1
-		right = 1
-		up = 0
-		down = 0
-	space
-		count = 1
-	" Yes  "
-	option
-		brackets = 0
-		left = 0
-		right = 0
-		up = 1
-		down = 1
-	space
-		count = 1
-	" No"
+  positionOptionHorizontal
+    width = 7
+  option
+    brackets = 0
+    left = 1
+    right = 1
+    up = 0
+    down = 0
+  space
+    count = 1
+  " Yes  "
+  option
+    brackets = 0
+    left = 0
+    right = 0
+    up = 1
+    down = 1
+  space
+    count = 1
+  " No"
 
-	textSpeed
-		delay = 2
+  textSpeed
+    delay = 2
 
-	select
-		default = 0
-		BSeparate = false
-		disableB = false
-		clear = false
-		targets = [
-			jump = 11,
-			jump = continue,
-			jump = 11
-		]
+  select
+    default = 0
+    BSeparate = false
+    disableB = false
+    clear = false
+    targets = [
+      jump = 11,
+      jump = continue,
+      jump = 11
+    ]
   clearMsg
   soundDisableTextSFX
   soundPlay
     track = 104
-	soundEnableTextSFX
+  soundEnableTextSFX
 
   """
   Chip lockout frames
@@ -265,9 +268,9 @@ script 11 mmbn6 {
   clearMsg
 
   soundDisableTextSFX
-	soundPlay
-		track = 386
-	soundEnableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
 
   """
   Chip lockout frames

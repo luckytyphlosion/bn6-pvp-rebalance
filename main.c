@@ -73,6 +73,18 @@ u32 SaveChosenTrainingMode (void) {
     return 0;
 }
 
+void CopyHandBuffersToPlayers (void) {
+    if ((eTrainingModeConfig.mode == 0 && !(eJoypad.held & JOYPAD_L)) || eTrainingModeConfig.mode != 0) {
+        if (ePlayerBattleHandSource_203F4A4.curChipIndex != 0xff) {
+            CopyWords(&ePlayerBattleHandSource_203F4A4, &ePlayerBattleHand, 0x50);
+        }
+    }
+
+    if (eTrainingModeConfig.mode == 0 && !(eJoypad.held & JOYPAD_R) && ePlayerBattleHandSource_203F4A4.curChipIndex != 0xff) {
+        CopyWords(&ePlayerBattleHandSource_203F4A4, &eOpponentBattleHand, 0x50);
+    }
+}
+
 void HookOpponentTransferBuffer (void) {
     if (ShouldOverrideOpponentTransferBuffer()) {
         unk_2039A00.joypadHeld = eSimulatedOpponent.joypadHeld;
