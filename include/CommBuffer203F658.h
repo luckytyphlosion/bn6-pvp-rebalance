@@ -10,5 +10,6 @@ struct CommBuffer203F658 {
     struct BattleObject * unkBattleObjectPtr;
 };
 
+extern struct CommBuffer203F658 byte_203F558;
 extern struct CommBuffer203F658 byte_203F658;
-
+extern struct CommBuffer203F658 byte_203CED0;

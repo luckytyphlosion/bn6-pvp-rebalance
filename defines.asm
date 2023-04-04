@@ -74,6 +74,8 @@
 	; but want to keep labels consistent with disassembly
 	.definelabel eStruct2036780, 0x2036780
 	.definelabel unk_2039A00, 0x2039A00
+	.definelabel byte_203CED0, 0x203ced0
+	.definelabel byte_203F558, 0x203F558
 	.definelabel byte_203F658, 0x203F658
 	.definelabel dword_203F5A0, 0x203f5a0
 
@@ -120,6 +122,7 @@
 	.definelabel sprite_setAlpha_8002c7a, 0x8002c7a
 	.definelabel sprite_hasShadow, 0x08002e3c
 	.definelabel sprite_removeShadow, 0x08002e52
+	.definelabel battle_getFlags, 0x800a2f0
 
 ; ewram freespace at 203f7f0
 

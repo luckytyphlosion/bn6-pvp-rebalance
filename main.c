@@ -36,6 +36,7 @@ extern void sprite_clearFinalPalette_CBind(struct BattleObject * obj);
 extern void sprite_setFinalPalette_CBind(struct BattleObject * obj, u8 palette);
 extern void sprite_setColorShader_CBind(struct BattleObject * obj, u16 colorShader);
 extern void sprite_zeroColorShader_CBind(struct BattleObject * obj);
+extern u32 battle_getFlags(void);
 
 void SetOpponentFormCheckpointStoreBattleObjectAndPlayConfirmSound(u8 chosenForm);
 void CopyNaviStats1ToBattleNaviStats1(void);
@@ -112,27 +113,42 @@ u16 HookPlayerAndOpponentInput_C (void) {
     return playerAndOpponentInput.playerInput;
 }
 
+bool32 CheckIfCustGaugeFullForBeastOver (void) {
+    if (eTrainingModeConfig.mode == 0) {
+        return FALSE;
+    }
+
+    if (battle_getFlags() & 0x12) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
 struct PlayerAndOpponentInput FrameData_InputCallback (void) {
     struct PlayerAndOpponentInput playerAndOpponentInput;
 
     u16 joypadHeld = eJoypad.held;
-    if (joypadHeld & JOYPAD_SELECT) {
-        if (joypadHeld & JOYPAD_L) {
-            eT1BattleObject0.hp = eT1BattleObject0.maxHP;
-            eT1BattleObject1.hp = eT1BattleObject1.maxHP;
-            playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
-            playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
-        } else {
-            joypadHeld &= ~JOYPAD_SELECT;
-            // lazy invert
-            if (joypadHeld & JOYPAD_LEFT) {
-                joypadHeld = (joypadHeld & ~JOYPAD_LEFT) | JOYPAD_RIGHT;
-            } else if (joypadHeld & JOYPAD_RIGHT) {
-                joypadHeld = (joypadHeld & ~JOYPAD_RIGHT) | JOYPAD_LEFT;
-            }
-            playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
-            playerAndOpponentInput.opponentInput = joypadHeld;
+
+    if (eJoypad.pressed & JOYPAD_SELECT) {
+        eSimulatedOpponent.oppState.isControllingOpponent ^= TRUE;
+    }
+
+    if (eSimulatedOpponent.oppState.isControllingOpponent) {
+        joypadHeld &= ~JOYPAD_SELECT;
+        // lazy invert
+        if (joypadHeld & JOYPAD_LEFT) {
+            joypadHeld = (joypadHeld & ~JOYPAD_LEFT) | JOYPAD_RIGHT;
+        } else if (joypadHeld & JOYPAD_RIGHT) {
+            joypadHeld = (joypadHeld & ~JOYPAD_RIGHT) | JOYPAD_LEFT;
         }
+        playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
+        playerAndOpponentInput.opponentInput = joypadHeld;
+    } else if ((joypadHeld & (JOYPAD_SELECT | JOYPAD_L)) == (JOYPAD_SELECT | JOYPAD_L)) {
+        eT1BattleObject0.hp = eT1BattleObject0.maxHP;
+        eT1BattleObject1.hp = eT1BattleObject1.maxHP;
+        playerAndOpponentInput.playerInput = JOYPAD_DEFAULT;
+        playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
     } else {
         playerAndOpponentInput.playerInput = joypadHeld;
         playerAndOpponentInput.opponentInput = JOYPAD_DEFAULT;
@@ -357,7 +373,14 @@ u8 BDTDodging_CustConfirmCallback (void) {
 }
 
 u8 FrameData_CustConfirmCallback (void) {
-    return 0xff;
+    u8 chosenForm = byte_203CED0.chosenForm;
+    if (eJoypad.held & JOYPAD_B) {
+        byte_203CED0.chosenForm = 0xff;
+    } else if (eJoypad.held & JOYPAD_START) {
+        chosenForm = 0xff;
+    }
+
+    return chosenForm;
 }
 
 void OnCustMenuConfirm_C (void) {

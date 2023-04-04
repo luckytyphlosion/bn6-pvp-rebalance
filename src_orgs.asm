@@ -158,6 +158,12 @@ ACDCTown_TrainingModeBattleLayout:
 	bl battle_clearFlags
 	pop pc
 
+	; beast over doesn't auto-open cust gauge
+ 	.org 0x800A200
+ Org_CheckIfCustGaugeFullForBeastOver:
+ 	bl CheckIfCustGaugeFullForBeastOver
+ 	pop pc
+
 	; disable folder shuffling
 	.org ShuffleFolderSlice
 	mov pc, lr

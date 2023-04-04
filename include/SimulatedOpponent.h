@@ -20,6 +20,10 @@ struct GenericOpponentState {
     u16 input;
     u16 stickyInput;
     union {
+        // frame data
+        struct {
+            u8 isControllingOpponent; // overload for frame data mode
+        };
         // elec cross dodging
         struct {
             u8 randomSteps;

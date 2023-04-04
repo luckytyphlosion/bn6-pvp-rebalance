@@ -107,6 +107,15 @@ PatchActiveCrossList:
 	bx r1
 
 CheckCrossUsedUp:
+	push {r0}
+	ldr r0, =eTrainingModeConfig_Mode
+	ldrb r0, [r0]
+	cmp r0, 0
+	bne @@notFrameDataMode
+	pop {r0}
+	mov r0, 0
+	mov pc, lr
+@@notFrameDataMode:
 	push {lr}
 	bl GetCrossList
 	ldrb r1, [r1,r4]

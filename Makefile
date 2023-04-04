@@ -34,6 +34,8 @@ $(ROM): main.o main_data.o xoshiro128pp.o .FORCE
 	tools/lzss.exe -ewn "temp/ACDCTownScript.msg.lz"
 	tools/armips.exe src.asm -sym "bn6f-training-mode.sym"
 
+patch:
+	tools/floating/flips.exe -c -b "bn6f.gba" "bn6f-training-mode.gba" "bn6f-training-mode.bps"
 
 #@$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o - - | cat - <(echo -e ".text\n\t.align\t2, 0") | 
 
