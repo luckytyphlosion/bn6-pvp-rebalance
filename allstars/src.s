@@ -116,6 +116,7 @@ CheckCrossUsedUp:
 	mov r0, 0
 	mov pc, lr
 @@notFrameDataMode:
+	pop {r0}
 	push {lr}
 	bl GetCrossList
 	ldrb r1, [r1,r4]
