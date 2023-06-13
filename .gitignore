@@ -6,4 +6,5 @@
 *.bps
 *.o
 *.dump
+out_patch/*
 tools/floating/flipscfg.bin

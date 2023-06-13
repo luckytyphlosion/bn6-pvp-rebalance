@@ -43,7 +43,9 @@ $(ROM_NAME): c_objs .FORCE
 	head -c -1 bn6f-pvp-rebalance-temp.sym | cat - ../bn6f/bn6f_nogba.sym > bn6f-pvp-rebalance.sym
 
 patch:
-	tools/floating/flips.exe -c -b "bn6f.gba" $(ROM_NAME) $(PATCH_NAME)
+	mkdir -p "out_patch/bn6_pvp_rebalance/v0.0.1"
+	touch out_patch/bn6_pvp_rebalance/info.toml
+	tools/floating/flips.exe -c -b "bn6f.gba" $(ROM_NAME) out_patch/bn6_pvp_rebalance/v0.0.1/BR6E_00.bps
 
 c_objs: training-mode/main.o training-mode/main_data.o training-mode/xoshiro128pp.o common/common_main.o
 
