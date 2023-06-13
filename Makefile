@@ -39,7 +39,8 @@ $(ROM_NAME): c_objs .FORCE
 	tools/TextPet.exe run-script gen_text.tps
 	tools/armips.exe lzpad.s
 	tools/lzss.exe -ewn "temp/ACDCTownScript.msg.lz"
-	tools/armips.exe main.asm -equ ENABLE_TRAINING_MODE $(ENABLE_TRAINING_MODE) -sym "bn6f-training-mode.sym"
+	tools/armips.exe main.asm -equ ENABLE_TRAINING_MODE $(ENABLE_TRAINING_MODE) -sym bn6f-pvp-rebalance-temp.sym
+	head -c -1 bn6f-pvp-rebalance-temp.sym | cat - ../bn6f/bn6f_nogba.sym > bn6f-pvp-rebalance.sym
 
 patch:
 	tools/floating/flips.exe -c -b "bn6f.gba" $(ROM_NAME) $(PATCH_NAME)
