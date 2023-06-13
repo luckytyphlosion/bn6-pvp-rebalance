@@ -117,4 +117,4 @@ ACDCTownTextScript_NEW:
 	.import "temp/ACDCTownScript.msg.lz"
 
 	.align 4, 0
-	.importobj "main_data.o"
+	.importobj "training-mode/main_data.o"

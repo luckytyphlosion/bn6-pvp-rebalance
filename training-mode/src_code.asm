@@ -206,7 +206,7 @@ sprite_zeroColorShader_CBind:
 	.pool
 
 	.align 4, 0
-	.importobj "main.o"
+	.importobj "training-mode/main.o"
 	.align 4, 0
-	.importobj "xoshiro128pp.o"
+	.importobj "training-mode/xoshiro128pp.o"
 

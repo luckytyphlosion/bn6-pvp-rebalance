@@ -1,4 +1,5 @@
-ROM = bn6f-training-mode.gba
+ROM_NAME = bn6f-pvp-rebalance.gba
+PATCH_NAME := $(ROM_NAME:.gba=.bps)
 
 TOOLCHAIN := $(DEVKITARM)
 ifneq (,$(TOOLCHAIN))
@@ -23,30 +24,30 @@ CFLAGS_NO_INCLUDE = -mno-thumb-interwork -std=c11 -Wno-trigraphs -mthumb -O2 -g 
 
 # TODO: INTEGRATE SCAN INCLUDES
 
-all: $(ROM)
+all: $(ROM_NAME)
 
-$(ROM): main.o main_data.o xoshiro128pp.o .FORCE
+$(ROM_NAME): training-mode/main.o training-mode/main_data.o training-mode/xoshiro128pp.o .FORCE
 	rm -f "temp/ACDCTownScript.msg"
 	rm -f "temp/ACDCTownScript.msg.lz"
 	tools/TextPet.exe run-script gen_compressed_text.tps
 	tools/TextPet.exe run-script gen_text.tps
 	tools/armips.exe lzpad.s
 	tools/lzss.exe -ewn "temp/ACDCTownScript.msg.lz"
-	tools/armips.exe src.asm -sym "bn6f-training-mode.sym"
+	tools/armips.exe main.asm -sym "bn6f-training-mode.sym"
 
 patch:
-	tools/floating/flips.exe -c -b "bn6f.gba" "bn6f-training-mode.gba" "bn6f-training-mode.bps"
+	tools/floating/flips.exe -c -b "bn6f.gba" $(ROM_NAME) $(PATCH_NAME)
 
 #@$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o - - | cat - <(echo -e ".text\n\t.align\t2, 0") | 
 
-main.o: main.c include/*.h
-	$(MODERNCC) $(CFLAGS) -c -o main.o main.c
+training-mode/main.o: training-mode/main.c include/*.h
+	$(MODERNCC) $(CFLAGS) -c -o training-mode/main.o training-mode/main.c
 
-main_data.o: main_data.c include/*.h
-	$(MODERNCC) $(CFLAGS) -c -o main_data.o main_data.c
+training-mode/main_data.o: training-mode/main_data.c include/*.h
+	$(MODERNCC) $(CFLAGS) -c -o training-mode/main_data.o training-mode/main_data.c
 
-xoshiro128pp.o: xoshiro128pp.c include/xoshiro128pp.h
-	$(MODERNCC) $(CFLAGS_NO_INCLUDE) -c -o xoshiro128pp.o xoshiro128pp.c
+training-mode/xoshiro128pp.o: training-mode/xoshiro128pp.c include/xoshiro128pp.h
+	$(MODERNCC) $(CFLAGS_NO_INCLUDE) -c -o training-mode/xoshiro128pp.o training-mode/xoshiro128pp.c
 
 clean:
 	rm -f *.o
