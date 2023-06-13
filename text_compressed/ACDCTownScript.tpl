@@ -182,6 +182,8 @@ script 5 mmbn6 {
 }
 
 script 6 mmbn6 {
+  flagSet
+    flag = 0x406
   end
 }
 

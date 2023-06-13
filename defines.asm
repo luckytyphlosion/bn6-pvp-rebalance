@@ -124,5 +124,8 @@
 	.definelabel sprite_removeShadow, 0x08002e52
 	.definelabel battle_getFlags, 0x800a2f0
 
+	; .vdefinelabel StartBattleGeneric, 0x80990b8, 0x809a5f0
+	.definelabel StartBattleGeneric, 0x80990b8
+	
 ; ewram freespace at 203f7f0
 

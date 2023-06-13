@@ -181,4 +181,10 @@ struct BattleObject {
 extern struct BattleObject eT1BattleObject0;
 extern struct BattleObject eT1BattleObject1;
 
+extern void sprite_forceWhitePalette_CBind(struct BattleObject * obj);
+extern void sprite_clearFinalPalette_CBind(struct BattleObject * obj);
+extern void sprite_setFinalPalette_CBind(struct BattleObject * obj, u8 palette);
+extern void sprite_setColorShader_CBind(struct BattleObject * obj, u16 colorShader);
+extern void sprite_zeroColorShader_CBind(struct BattleObject * obj);
+
 #endif // GUARD_BATTLE_OBJECT_H

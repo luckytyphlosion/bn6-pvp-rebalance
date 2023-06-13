@@ -5,4 +5,5 @@
 *.sna
 *.bps
 *.o
+*.dump
 tools/floating/flipscfg.bin

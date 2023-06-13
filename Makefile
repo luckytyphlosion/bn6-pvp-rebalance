@@ -24,21 +24,30 @@ CFLAGS_NO_INCLUDE = -mno-thumb-interwork -std=c11 -Wno-trigraphs -mthumb -O2 -g 
 
 # TODO: INTEGRATE SCAN INCLUDES
 
+ifneq (,$(wildcard enable_training_mode.dump))
+ENABLE_TRAINING_MODE := 1
+else
+ENABLE_TRAINING_MODE := 0
+endif
+
 all: $(ROM_NAME)
 
-$(ROM_NAME): training-mode/main.o training-mode/main_data.o training-mode/xoshiro128pp.o .FORCE
+$(ROM_NAME): c_objs .FORCE
 	rm -f "temp/ACDCTownScript.msg"
 	rm -f "temp/ACDCTownScript.msg.lz"
 	tools/TextPet.exe run-script gen_compressed_text.tps
 	tools/TextPet.exe run-script gen_text.tps
 	tools/armips.exe lzpad.s
 	tools/lzss.exe -ewn "temp/ACDCTownScript.msg.lz"
-	tools/armips.exe main.asm -sym "bn6f-training-mode.sym"
+	tools/armips.exe main.asm -equ ENABLE_TRAINING_MODE $(ENABLE_TRAINING_MODE) -sym "bn6f-training-mode.sym"
 
 patch:
 	tools/floating/flips.exe -c -b "bn6f.gba" $(ROM_NAME) $(PATCH_NAME)
 
-#@$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o - - | cat - <(echo -e ".text\n\t.align\t2, 0") | 
+c_objs: training-mode/main.o training-mode/main_data.o training-mode/xoshiro128pp.o common/common_main.o
+
+common/common_main.o: common/common_main.c include/*.h
+	$(MODERNCC) $(CFLAGS) -c -o common/common_main.o common/common_main.c
 
 training-mode/main.o: training-mode/main.c include/*.h
 	$(MODERNCC) $(CFLAGS) -c -o training-mode/main.o training-mode/main.c

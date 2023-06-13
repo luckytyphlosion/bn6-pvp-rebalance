@@ -1,5 +1,6 @@
 #include "gba/types.h"
 #include "symbols.h"
+#include "functions.h"
 
 #include "AIData.h"
 #include "BattleObject.h"
@@ -23,31 +24,11 @@
 
 #include "xoshiro128pp.h"
 
-extern void CopyWords(void * src, void * dest, u32 size);
-extern void ZeroFillByWord(void * src, u32 size);
-extern bool32 battle_isPaused(void);
-extern void PlaySoundEffect(u32 soundEffect);
-extern u32 GetRNG1(void);
-extern u32 GetRNG2(void);
-extern bool32 battle_isTimeStop(void);
-extern bool32 TestEventFlag_CBind(u16 eventFlag);
-extern void sprite_forceWhitePalette_CBind(struct BattleObject * obj);
-extern void sprite_clearFinalPalette_CBind(struct BattleObject * obj);
-extern void sprite_setFinalPalette_CBind(struct BattleObject * obj, u8 palette);
-extern void sprite_setColorShader_CBind(struct BattleObject * obj, u16 colorShader);
-extern void sprite_zeroColorShader_CBind(struct BattleObject * obj);
-extern u32 battle_getFlags(void);
-
 void SetOpponentFormCheckpointStoreBattleObjectAndPlayConfirmSound(u8 chosenForm);
 void CopyNaviStats1ToBattleNaviStats1(void);
 void SetTrainingModeRNG(void);
 bool32 ShouldOverrideOpponentTransferBuffer(void);
 u8 DecayRandom1in4(void);
-
-u32 ZeroOutShopData (void) {
-    ZeroFillByWord(eToolkit_ShopData, sizeof(eToolkit_ShopData));
-    return 0;
-}
 
 u32 OnAfterBattleInit_C (void) {
     SetTrainingModeRNG();
