@@ -80,9 +80,9 @@ ACDCTown_TrainingModeBattleLayout:
 	.halfword 0x1a0 ; enemy megaman
 	.byte 0xF0
 
-	.org 0x80eb0a4
-	; override panel validity check when moving
-	bl Override_sub_800F964_MovementCheckFunction
+	; .org 0x80eb0a4
+	; ; override panel validity check when moving
+	; bl Override_sub_800F964_MovementCheckFunction
 
 	; custom gauge always full
 	.org 0x801DF92
